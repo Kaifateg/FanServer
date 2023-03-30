@@ -11,6 +11,7 @@ class Author(models.Model):
 
 class Reply(models.Model):
     text = models.TextField()
+    time_create_reply = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     status = models.BooleanField(default=False)
 

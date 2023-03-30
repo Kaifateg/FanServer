@@ -1,4 +1,3 @@
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
@@ -49,47 +48,49 @@ class PostView(DetailView):
     context_object_name = 'postview'
 
 
-class CreatePostView(PermissionRequiredMixin, CreateView):
-    permission_required = ('posts.add_post',)
+class CreatePostView(CreateView):
     model = Post
     form_class = PostForm
     template_name = 'post.html'
     success_url = reverse_lazy('home')
 
 
-class UpdatePostView(PermissionRequiredMixin, UpdateView):
-    permission_required = ('posts.change_post',)
+class UpdatePostView(UpdateView):
     model = Post
     form_class = PostForm
     template_name = 'post_update.html'
     success_url = reverse_lazy('home')
 
 
-class DeletePostView(PermissionRequiredMixin, DeleteView):
-    permission_required = ('posts.delete_post',)
+class DeletePostView(DeleteView):
     model = Post
     form_class = PostForm
     template_name = 'post_delete.html'
     success_url = reverse_lazy('home')
 
 
-class ShowReplyView(PermissionRequiredMixin, ListView):
-    queryset = Post.objects.filter(post__author=user).select_related('reply')
+class ShowReplyView(ListView):
+    queryset = Post.objects.filter(author=user).select_related('reply')
     template_name = 'replies.html'
-    context_object_name = 'showreply'
+    context_object_name = 'show_reply'
     paginate_by = 10
 
 
-class CreateReplyView(PermissionRequiredMixin, CreateView):
-    permission_required = ('posts.add_reply',)
+class AuthorReplyView(DetailView):
+    queryset = Reply.objects.filter(author=user)
+    template_name = 'author_reply.html'
+    context_object_name = 'author_reply'
+    paginate_by = 10
+
+
+class CreateReplyView(CreateView):
     model = Reply
     form_class = ReplyForm
     template_name = 'post_view.html'
     success_url = reverse_lazy('home')
 
 
-class UpdateReplyView(PermissionRequiredMixin, UpdateView):
-    permission_required = ('posts.update_reply',)
+class UpdateReplyView(UpdateView):
     model = Reply
     form_class = ReplyForm
     template_name = 'reply_update.html'
@@ -103,8 +104,7 @@ class UpdateReplyView(PermissionRequiredMixin, UpdateView):
         return response
 
 
-class DeleteReplyView(PermissionRequiredMixin, DeleteView):
-    permission_required = ('posts.delete_reply',)
+class DeleteReplyView(DeleteView):
     model = Reply
     form_class = ReplyForm
     template_name = 'reply_delete.html'
