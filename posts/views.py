@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
 
+from .filters import PostFilter
 from .models import *
 from .forms import PostForm, ReplyForm
 
@@ -31,7 +32,9 @@ def model_form_upload(request):
                 return redirect('home')
     else:
         post_form = PostForm()
-        return render(request, 'post.html', {'post_form': post_form})
+        pass
+
+        # return render(request, 'post.html', {'post_form': post_form})
 
 
 class HomePageView(ListView):
@@ -74,6 +77,16 @@ class ShowReplyView(ListView):
     template_name = 'replies.html'
     context_object_name = 'show_reply'
     paginate_by = 10
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = PostFilter(self.request.GET, queryset)
+        return self.filterset.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filterset'] = self.filterset
+        return context
 
 
 class AuthorReplyView(DetailView):

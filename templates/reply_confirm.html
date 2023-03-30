@@ -5,11 +5,8 @@
    <title>Notification</title>
 </head>
 <body>
-    <h2>Hello! New posts of the weak</h2>
     <ul>
-        {% for post in posts %}
-            <l1><a href="{{ link }}{{ post.get_absolute_url }}">{{ post.title }}</a></l1>
-        {% endfor %}
+        <l1><a href="{% url 'author_reply' %}">Your replies</a></l1>
     </ul>
 </body>
 </html>
