@@ -1,0 +1,12 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+
+<h1>Confirm Reply</h1>
+<hr>
+<p>{{ object.title }}</p>
+<p>{{ object.author }}</p>
+
+<h1>click here to <a href="{% url 'update_reply' object.pk %}">Confirm</a></h1>
+
+{% endblock content %}

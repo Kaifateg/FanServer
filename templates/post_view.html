@@ -1,0 +1,17 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<h1>Title: {{ postview.title }}</h1>
+<h1>Text: {{ postview.text }}</h1>
+<h1>Category: {{ postview.category }}</h1>
+<h1>Author: {{ postview.author }}</h1>
+<h1>{{ postview.files }}</h1>
+
+    {% if perms.posts.add_reply %}
+    <form id="reply" action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+    {% endif %}
+{% endblock content %}
