@@ -1,4 +1,6 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
 
@@ -72,11 +74,19 @@ class DeletePostView(DeleteView):
     success_url = reverse_lazy('home')
 
 
+def sample_view(request):
+    current_user = request.user
+    return current_user.id
+
+
 class ShowReplyView(ListView):
-    queryset = Post.objects.filter(author=user).select_related('reply')
     template_name = 'replies.html'
     context_object_name = 'show_reply'
     paginate_by = 10
+
+    def __init__(self, *args, **kwargs):
+        super(ShowReplyView, self).__init__(*args, **kwargs)
+        self.queryset = ShowReplyView.objects.filter(user=self.request.user)
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -90,10 +100,16 @@ class ShowReplyView(ListView):
 
 
 class AuthorReplyView(DetailView):
-    queryset = Reply.objects.filter(author=user, status=True)
     template_name = 'author_reply.html'
     context_object_name = 'author_reply'
     paginate_by = 10
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(AuthorReplyView, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return AuthorReplyView.objects.filter(user=self.request.user, status=True)
 
 
 class CreateReplyView(CreateView):

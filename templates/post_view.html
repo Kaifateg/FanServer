@@ -7,7 +7,7 @@
 <h1>Author: {{ post_view.author }}</h1>
 <h1>{{ post_view.files }}</h1>
 
-    {% if perms.posts.add_reply %}
+    {% if user.is_authenticated %}
     <form id="reply" action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}

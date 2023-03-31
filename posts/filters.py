@@ -5,7 +5,4 @@ from .models import Post
 class PostFilter(FilterSet):
     class Meta:
         model = Post
-        fields = {
-            'title': ['icontains'],
-            'reply': ['icontains'],
-        }
+        fields = {'title', 'reply'}

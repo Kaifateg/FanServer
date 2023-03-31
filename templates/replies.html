@@ -29,6 +29,7 @@ Reply
                 <td>{{ post.category }}</td>
                 <td>{{ post.files }}</td>
 
+                {% if user.is_authenticated %}
                 <td>
                     {% for reply in post.reply.all %}
                     <a href="{% url 'confirm_reply' reply.id %}">Confirm {{ reply }}</a>
@@ -40,6 +41,7 @@ Reply
                     <a href="{% url 'update_post' pk=post.id %}">Update</a>
                     <a href="{% url 'delete_post' pk=post.id %}">Delete</a>
                 </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </table>
