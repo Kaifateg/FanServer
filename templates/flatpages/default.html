@@ -26,9 +26,9 @@
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 {% if user.is_authenticated %}
-                                <li><a href="{% url 'logout' %}">Logout</a></li>
+                                <li><a href="{% url 'account_logout' %}">Logout</a></li>
                                 {% else %}
-                                <li><a href="{% url 'login' %}">Login</a></li>
+                                <li><a href="{% url 'account_login' %}">Login</a></li>
                                 {% endif %}
                                 <li><a class="dropdown-item" href="#">Action</a></li>
                                 <li><a class="dropdown-item" href="#">Another action</a></li>

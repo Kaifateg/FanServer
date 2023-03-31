@@ -67,7 +67,7 @@ ROOT_URLCONF = 'Fanserv.Fanserv.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'Fanserv.templates')],
+        'DIRS': ['templates', 'C:\\Users\\Mist\\PycharmProjects\\FanServer\\templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
