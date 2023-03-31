@@ -8,7 +8,7 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ['title', 'text', 'files', 'category']
+        fields = '__all__'
         widgets = {'media': ClearableFileInput(attrs={'multiple': True})}
 
 

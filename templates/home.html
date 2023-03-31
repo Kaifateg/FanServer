@@ -5,10 +5,48 @@ Posts
 {% endblock title %}
 
 {% block content %}
-    <h1>Number of news: {{ postnews|length }}</h1>
+    <h1>Posts</h1>
 
-    <hr>
-    {% for x in post %}
+    <a href="{% url 'add_post' %}">Add new post</a>
+    <a href="{% url 'show_reply' %}">Show my posts</a>
+    <a href="{% url 'show_reply' %}">Show my replies</a>
+
+    {% if homepage %}
+        <table>
+            <tr>
+                <td>Title</td>
+                <td>Text</td>
+                <td>Category</td>
+                <td>Files</td>
+                <td>Author</td>
+            </tr>
+
+            {% for post in homepage %}
+            <tr>
+                <td>{{ post.title }}</td>
+                <td>{{ post.text }}</td>
+                <td>{{ post.category }}</td>
+                <td>{{ post.files }}</td>
+                <td>{{ post.author }}</td>
+
+                <td>
+                    <a href="{% url 'view_post' pk=post.id %}">Reply</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    {% else %}
+        <h2>There is no posts</h2>
+    {% endif %}
+
+    {% if page_obj.has_previous %}
+        <a href="?{% url_replace page=1 %}">1</a>
+        {% if page_obj.previous_page_number != 1 %}
+            ...
+            <a href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+        {% endif %}
+    {% endif %}
 
     {{ page_obj.number }}
 

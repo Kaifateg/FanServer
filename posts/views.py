@@ -48,7 +48,7 @@ class HomePageView(ListView):
 class PostView(DetailView):
     queryset = Post.objects.all()
     template_name = 'post_view.html'
-    context_object_name = 'postview'
+    context_object_name = 'post_view'
 
 
 class CreatePostView(CreateView):
@@ -90,7 +90,7 @@ class ShowReplyView(ListView):
 
 
 class AuthorReplyView(DetailView):
-    queryset = Reply.objects.filter(author=user)
+    queryset = Reply.objects.filter(author=user, status=True)
     template_name = 'author_reply.html'
     context_object_name = 'author_reply'
     paginate_by = 10
