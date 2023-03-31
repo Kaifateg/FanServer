@@ -80,6 +80,7 @@ def sample_view(request):
 
 
 class ShowReplyView(ListView):
+    queryset = Post.objects.all()
     template_name = 'replies.html'
     context_object_name = 'show_reply'
     paginate_by = 10
@@ -100,6 +101,7 @@ class ShowReplyView(ListView):
 
 
 class AuthorReplyView(DetailView):
+    queryset = Reply.objects.all()
     template_name = 'author_reply.html'
     context_object_name = 'author_reply'
     paginate_by = 10
