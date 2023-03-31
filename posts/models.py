@@ -14,7 +14,6 @@ class Reply(models.Model):
     time_create_reply = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     status = models.BooleanField(default=False)
-    objects = models.Manager()
 
     def __str__(self):
         return f'{self.text}'
@@ -40,7 +39,6 @@ class Post(models.Model):
     time_create_post = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     reply = models.ForeignKey(Reply, on_delete=models.CASCADE)
-    objects = models.Manager()
 
     def __str__(self):
         return f'{self.title}'
