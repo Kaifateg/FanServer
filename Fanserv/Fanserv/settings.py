@@ -85,7 +85,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-WSGI_APPLICATION = 'Fanserv.wsgi.application'
+WSGI_APPLICATION = 'Fanserv.Fanserv.wsgi.application'
 
 
 # Database
